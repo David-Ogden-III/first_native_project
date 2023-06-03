@@ -1,5 +1,6 @@
 import { StyleSheet } from 'react-native';
 import { Header as HeaderRNE, Button } from '@rneui/themed';
+import WorkoutModal from './WorkoutModal';
 
 
 const Header = () => {
@@ -9,7 +10,7 @@ const Header = () => {
             backgroundColor='#343a40'
             centerComponent={{ text: 'Workout Tracker', style: styles.heading }}
             rightComponent={
-                    <Button />
+                    <WorkoutModal />
             }
         />
     );
