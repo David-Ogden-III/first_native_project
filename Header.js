@@ -3,14 +3,14 @@ import { Header as HeaderRNE, Button } from '@rneui/themed';
 import WorkoutModal from './WorkoutModal';
 
 
-const Header = () => {
+const Header = ({ onSubmit }) => {
 
     return (
         <HeaderRNE
             backgroundColor='#343a40'
             centerComponent={{ text: 'Workout Tracker', style: styles.heading }}
             rightComponent={
-                    <WorkoutModal />
+                    <WorkoutModal onSubmit={onSubmit} />
             }
         />
     );
