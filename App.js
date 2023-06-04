@@ -28,7 +28,6 @@ export default function App() {
   return (
     <SafeAreaProvider>
       <Header onSubmit={addTitle}/>
-      <View>
         {workoutList.map(workout =>
           <ExerciseCard
             key={workout.id}
@@ -39,7 +38,6 @@ export default function App() {
             deleteExercise={deleteExercise} 
           />
         )}
-      </View>
     </SafeAreaProvider>
   );
 };
