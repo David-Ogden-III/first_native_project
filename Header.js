@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { Header as HeaderRNE, Button } from '@rneui/themed';
+import { Header as HeaderRNE } from '@rneui/themed';
 import WorkoutModal from './WorkoutModal';
 
 

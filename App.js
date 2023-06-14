@@ -1,8 +1,8 @@
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import Header from './Header';
 import { useState } from 'react';
-import { View } from 'react-native';
 import ExerciseCard from './ExerciseCard';
+import { ScrollView, ScrollViewStickyHeader } from 'react-native';
 
 let nextId = 10;
 let superNextId = 100
@@ -22,23 +22,24 @@ export default function App() {
   }
 
   const deleteExercise = (idToDelete) => {
-        setExerciseList(exerciseList.filter(exercise => exercise.id !== idToDelete))
+    setExerciseList(exerciseList.filter(exercise => exercise.id !== idToDelete))
   }
 
   return (
     <SafeAreaProvider>
-      <Header onSubmit={addTitle}/>
+      <ScrollView scrollEnabled>
+        <Header onSubmit={addTitle} />
         {workoutList.map(workout =>
           <ExerciseCard
             key={workout.id}
             workoutList={workout}
-            cardId={workout.id} 
-            addExercise={addExercise} 
-            exerciseList={exerciseList} onSubmit={addTitle} 
-            deleteExercise={deleteExercise} 
+            cardId={workout.id}
+            addExercise={addExercise}
+            exerciseList={exerciseList} onSubmit={addTitle}
+            deleteExercise={deleteExercise}
           />
         )}
+      </ScrollView>
     </SafeAreaProvider>
   );
 };
-

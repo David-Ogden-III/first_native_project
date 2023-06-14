@@ -1,5 +1,6 @@
 import { View, Text } from 'react-native';
-import { Card, Button } from '@rneui/themed';
+import { Card } from '@rneui/themed';
+import ExerciseModal from './ExerciseModal';
 
 const ExerciseCard = ({ workoutList, addExercise, exerciseList, onSubmit, cardId, deleteExercise, navigation }) => {
 
@@ -12,10 +13,7 @@ const ExerciseCard = ({ workoutList, addExercise, exerciseList, onSubmit, cardId
                             <Text style={{ justifyContent: 'flex-start' }}>
                                 {workoutList.focus}{'\n'}{workoutList.date}
                             </Text>
-                            <Button 
-                            title='View Workout'
-                            onPress={() => navigation.navigate('ExerciseModal')}
-                            size='sm' buttonStyle={{ borderWidth: 0, borderRadius: 10 }} style={{ justifyContent: 'flex-end' }} />
+                            <ExerciseModal />
                     </Card>
                 </View>
                 :
