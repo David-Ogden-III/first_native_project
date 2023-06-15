@@ -2,7 +2,7 @@ import { View, Text } from 'react-native';
 import { Card } from '@rneui/themed';
 import ExerciseModal from './ExerciseModal';
 
-const ExerciseCard = ({ workoutList, addExercise, exerciseList, onSubmit, cardId, deleteExercise, navigation }) => {
+const ExerciseCard = ({ workoutList, addExercise, exerciseList, cardId, deleteExercise }) => {
 
     return (
         <>
@@ -13,7 +13,7 @@ const ExerciseCard = ({ workoutList, addExercise, exerciseList, onSubmit, cardId
                             <Text style={{ justifyContent: 'flex-start' }}>
                                 {workoutList.focus}{'\n'}{workoutList.date}
                             </Text>
-                            <ExerciseModal />
+                            <ExerciseModal onSubmit={addExercise} workoutList={workoutList} exerciseList={exerciseList} cardId={cardId} deleteExercise={deleteExercise} />
                     </Card>
                 </View>
                 :

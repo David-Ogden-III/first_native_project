@@ -1,11 +1,13 @@
-import { View, Modal, Text } from "react-native";
+import { View, Modal, StyleSheet, TouchableOpacity, ScrollView, Text } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import { Button } from "@rneui/themed";
+import { Button, Header as HeaderRNE } from "@rneui/themed";
 import { useState } from "react";
-import { StyleSheet } from 'react-native';
-import { Header as HeaderRNE } from '@rneui/themed';
+import ExerciseForm from "./ExerciseForm";
+import AddExercise from "./AddExercise";
+import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import { faCircleXmark } from "@fortawesome/free-regular-svg-icons";
 
-const ExerciseModal = ({ onSubmit, exerciseList, workoutList, cardId, deleteExercise, editExercise }) => {
+const ExerciseModal = ({ onSubmit, exerciseList, workoutList, cardId, deleteExercise }) => {
     const [modalVisible, setModalVisible] = useState(false);
 
     return (
@@ -27,16 +29,33 @@ const ExerciseModal = ({ onSubmit, exerciseList, workoutList, cardId, deleteExer
                     <HeaderRNE
                         backgroundColor='#343a40'
                         centerComponent={{ text: 'Workout Tracker', style: styles.heading }}
+                        leftComponent={
+                            <View>
+                                <TouchableOpacity onPress={() => setModalVisible(!modalVisible)} >
+                                    <FontAwesomeIcon
+                                        icon={ faCircleXmark}
+                                        style={{ color: 'white'}}
+                                        size={26}
+                                    />
+                                </TouchableOpacity>
+                            </View>
+                        }
                     />
                     <View>
-                        <Text>This is the modal</Text>
+                        <Text style={{ textAlign: 'center'}}>
+                            {workoutList.focus} -- {workoutList.date}
+                        </Text>
                     </View>
+
+                    <ScrollView scrollEnabled>
                     <View>
-                        <Button
-                            title={'close'}
-                            onPress={() => setModalVisible(!modalVisible)}
-                        />
+                        <ExerciseForm onSubmit={onSubmit} cardId={cardId} />
                     </View>
+
+                    <View>
+                        <AddExercise exerciseList={exerciseList} cardId={cardId} onSubmit={onSubmit} deleteExercise={deleteExercise} />
+                    </View>
+                    </ScrollView>
                 </SafeAreaProvider>
             </Modal>
 
@@ -48,7 +67,7 @@ const styles = StyleSheet.create({
     heading: {
         color: 'white',
         fontSize: 22,
-        fontWeight: 'bold',
+        fontWeight: 'bold'
     }
 });
 

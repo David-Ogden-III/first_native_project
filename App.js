@@ -2,7 +2,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import Header from './Header';
 import { useState } from 'react';
 import ExerciseCard from './ExerciseCard';
-import { ScrollView, ScrollViewStickyHeader } from 'react-native';
+import { ScrollView } from 'react-native';
 
 let nextId = 10;
 let superNextId = 100
@@ -27,8 +27,9 @@ export default function App() {
 
   return (
     <SafeAreaProvider>
-      <ScrollView scrollEnabled>
+      
         <Header onSubmit={addTitle} />
+        <ScrollView scrollEnabled>
         {workoutList.map(workout =>
           <ExerciseCard
             key={workout.id}
