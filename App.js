@@ -3,21 +3,20 @@ import Header from './Header';
 import { useState } from 'react';
 import ExerciseCard from './ExerciseCard';
 import { ScrollView } from 'react-native';
-
-let nextId = 10;
-let superNextId = 100
+import 'react-native-get-random-values';
+import { v4 as uuidv4 } from 'uuid';
 
 export default function App() {
   const [workoutList, setWorkoutList] = useState([{ id: 0, focus: '', date: '' }])
   const [exerciseList, setExerciseList] = useState([{ id: 0, lift: '', weight: '', reps: '' }])
 
   const addTitle = (newTitleData) => {
-    const newTitle = { id: nextId++, ...newTitleData }
+    const newTitle = { id: uuidv4(), ...newTitleData }
     setWorkoutList([...workoutList, newTitle])
   }
 
   const addExercise = (newExerciseData) => {
-    const newExercise = { id: superNextId++, ...newExerciseData }
+    const newExercise = { id: uuidv4(), ...newExerciseData }
     setExerciseList([...exerciseList, newExercise])
   }
 
@@ -29,7 +28,11 @@ export default function App() {
     <SafeAreaProvider>
       
         <Header onSubmit={addTitle} />
-        <ScrollView scrollEnabled>
+        <ScrollView
+          scrollEnabled 
+          scrollsToTop
+          showsVerticalScrollIndicator
+        >
         {workoutList.map(workout =>
           <ExerciseCard
             key={workout.id}

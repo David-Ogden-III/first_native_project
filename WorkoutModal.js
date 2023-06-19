@@ -2,25 +2,38 @@ import { View } from 'react-native';
 import { Button, Dialog } from '@rneui/themed';
 import { useState } from 'react';
 import { Formik } from 'formik';
-import { Picker } from '@react-native-picker/picker';
-import DateTimePicker from '@react-native-community/datetimepicker'
+import DateTimePicker from '@react-native-community/datetimepicker';
+import DropDownPicker from 'react-native-dropdown-picker';
 
-
-const WorkoutModal = ({ onSubmit }) => {
+const WorkoutModal = ({ onSubmit, cardId }) => {
   const [modalOpen, setModalOpen] = useState(false);
-  const [focus, setFocus] = useState('Push')
   const [date, setDate] = useState(new Date());
+  const [ openPicker, setOpenPicker ] = useState(false);
+  const [ focusValue, setFocusValue ] = useState(null);
+  const [ focuses, setFocuses ] = useState([
+    { label: 'Shoulders', value: 'Shoulders'},
+    { label: 'Back', value: 'Back'},
+    { label: 'Arms', value: 'Arms'},
+    { label: 'Chest', value: 'Chest'},
+    { label: 'Hamstrings', value: 'Hamstrings'},
+    { label: 'Legs', value: 'Legs'},
+    { label: 'Lower Body', value: 'Lower Body'},
+    { label: 'Pull', value: 'Pull'},
+    { label: 'Push', value: 'Push'},
+    { label: 'Quads', value: 'Quads'},
+    { label: 'Upper Body', value: 'Upper Body'}
+  ]);
 
-  const handleSubmit = (values) => {
+  const handleSubmit = () => {
     const newTitle = {
-      focus: values.focus,
+      focus: focusValue,
       date: date.toLocaleDateString('en-US')
     }
     onSubmit(newTitle);
-    setModalOpen(false)
-    console.log(newTitle)
-    setFocus('Push')
+    setModalOpen(false);
+    console.log(newTitle);
     setDate(new Date());
+    setFocusValue('');
   }
 
   const onDateChange = (event, selectedDate) => {
@@ -28,55 +41,65 @@ const WorkoutModal = ({ onSubmit }) => {
     setDate(currentDate);
   };
 
+  const focusSorter = (a,b) => {
+    if (a.label < b.label) {
+      return -1;
+    }
+    if (a.label > b.label) {
+      return 1;
+    }
+    return 0;
+  };
+
   return (
     <View>
       <View>
         <Button
-          title='New workout'
+          title='New'
           onPress={() => setModalOpen(true)}
         />
       </View>
       <Dialog
         isVisible={modalOpen}
-        onBackdropPress={() => setModalOpen(false)}
+        onBackdropPress={() => {
+          setModalOpen(false);
+          setDate(new Date());
+          setFocusValue('');
+          setOpenPicker(false);
+        }}
       >
         <Dialog.Title title='Select Focus and Date' />
         <Formik
           initialValues={{
-            focus: 'Push',
+            focus: '',
             date: ''
           }}
           onSubmit={handleSubmit}
         >
-          {({ setFieldValue, handleSubmit, values }) => (
+          {({ handleSubmit }) => (
             <View>
 
-              <View>
-                <Picker
-                  value={values.focus}
-                  selectedValue={focus}
-                  onValueChange={(itemValue) => {
-                    setFieldValue('focus', itemValue)
-                    setFocus(itemValue)
-                  }}
-                >
-                  <Picker.Item label='Push' value='Push' />
-                  <Picker.Item label='Pull' value='Pull' />
-                  <Picker.Item label='Legs' value='Legs' />
-                </Picker>
-              </View>
-
               <View style={{ alignItems: 'center'}}>
+                <DropDownPicker
+                  open={openPicker}
+                  value={focusValue}
+                  items={focuses.sort(focusSorter)}
+                  setOpen={setOpenPicker}
+                  setValue={setFocusValue}
+                  setItems={setFocuses}
+                  searchable={true}
+                  closeAfterSelecting={true}
+                  placeholder='Select Focus...'
+                  style={{ marginVertical: 3}}
+                />
+
                 <DateTimePicker
                   value={date}
-                  mode='date'
-                  display='default'
                   onChange={onDateChange}
+                  style={{ marginVertical: 3}}
                 />
-              </View>
 
-              <View>
-                <Button onPress={handleSubmit} title="Submit" />
+                <Dialog.Button onPress={handleSubmit} title="Submit" buttonStyle={{ marginTop: 3}}/>
               </View>
             </View>
           )}

@@ -28,33 +28,32 @@ const ExerciseModal = ({ onSubmit, exerciseList, workoutList, cardId, deleteExer
                 <SafeAreaProvider>
                     <HeaderRNE
                         backgroundColor='#343a40'
-                        centerComponent={{ text: 'Workout Tracker', style: styles.heading }}
+                        centerComponent={{ text: `${workoutList.focus}${' '}${workoutList.date}`, style: styles.heading }}
                         leftComponent={
                             <View>
                                 <TouchableOpacity onPress={() => setModalVisible(!modalVisible)} >
                                     <FontAwesomeIcon
-                                        icon={ faCircleXmark}
-                                        style={{ color: 'white'}}
+                                        icon={faCircleXmark}
+                                        style={{ color: 'white' }}
                                         size={26}
                                     />
                                 </TouchableOpacity>
                             </View>
                         }
                     />
-                    <View>
-                        <Text style={{ textAlign: 'center'}}>
-                            {workoutList.focus} -- {workoutList.date}
-                        </Text>
-                    </View>
 
-                    <ScrollView scrollEnabled>
-                    <View>
-                        <ExerciseForm onSubmit={onSubmit} cardId={cardId} />
-                    </View>
+                    <ScrollView
+                        scrollEnabled
+                        scrollsToTop
+                        showsVerticalScrollIndicator
+                    >
+                        <View>
+                            <ExerciseForm onSubmit={onSubmit} cardId={cardId} />
+                        </View>
 
-                    <View>
-                        <AddExercise exerciseList={exerciseList} cardId={cardId} onSubmit={onSubmit} deleteExercise={deleteExercise} />
-                    </View>
+                        <View>
+                            <AddExercise exerciseList={exerciseList} cardId={cardId} onSubmit={onSubmit} deleteExercise={deleteExercise} />
+                        </View>
                     </ScrollView>
                 </SafeAreaProvider>
             </Modal>
@@ -67,7 +66,7 @@ const styles = StyleSheet.create({
     heading: {
         color: 'white',
         fontSize: 22,
-        fontWeight: 'bold'
+        fontWeight: 'bold',
     }
 });
 

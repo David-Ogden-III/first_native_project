@@ -2,52 +2,74 @@ import { View, Text, TextInput } from "react-native";
 import { Formik } from "formik";
 import { Button } from "@rneui/themed";
 import { useState } from "react";
-import { Picker } from "@react-native-picker/picker";
+import DropDownPicker from 'react-native-dropdown-picker';
 
 const ExerciseForm = ({ onSubmit, cardId }) => {
-    const [lift, setLift] = useState('Squat')
+    const [openPicker, setOpenPicker] = useState(false);
+    const [liftValue, setLiftValue] = useState(null);
+    const [lifts, setLifts] = useState([
+        { label: 'Shoulders', value: 'Shoulders' },
+        { label: 'Back', value: 'Back' },
+        { label: 'Arms', value: 'Arms' },
+        { label: 'Chest', value: 'Chest' },
+        { label: 'Hamstrings', value: 'Hamstrings' },
+        { label: 'Legs', value: 'Legs' },
+        { label: 'Lower Body', value: 'Lower Body' },
+        { label: 'Pull', value: 'Pull' },
+        { label: 'Push', value: 'Push' },
+        { label: 'Quads', value: 'Quads' },
+        { label: 'Upper Body', value: 'Upper Body' }
+    ]);
 
     const handleSubmit = (values) => {
         const newExercise = {
-            lift: values.lift,
+            lift: liftValue,
             weight: values.weight,
             reps: values.reps,
             cardId: cardId
         };
         onSubmit(newExercise);
-        console.log(newExercise);
+        console.log(`Lift: ${newExercise.lift} \n Reps: ${newExercise.reps} \n Weight: ${newExercise.weight}`);
     };
+
+    const liftSorter = (a,b) => {
+        if (a.label < b.label) {
+          return -1;
+        }
+        if (a.label > b.label) {
+          return 1;
+        }
+        return 0;
+      };
 
     return (
         <View>
             <Formik
                 initialValues={{
-                    lift: 'Squat',
+                    lift: '',
                     weight: '',
                     reps: ''
                 }}
                 onSubmit={handleSubmit}
             >
-                {({ setFieldValue, handleSubmit, handleChange, handleBlur, values }) => (
+                {({ handleSubmit, handleChange, handleBlur, values }) => (
                     <View>
 
-                        <View>
-                            <Picker
-                                value={values.lift}
-                                selectedValue={lift}
-                                onValueChange={(itemValue) => {
-                                    setFieldValue('lift', itemValue)
-                                    setLift(itemValue)
-                                }}
-                            >
-                                
-                                <Picker.Item label='Squat' value='squat' />
-                                <Picker.Item label='Bench Press' value='bench' />
-                                <Picker.Item label='Row' value='row' />
-                            </Picker>
-                        </View>
-
-                        <View>
+                        <View style={{ padding: 5}}>
+                            <DropDownPicker
+                                open={openPicker}
+                                value={liftValue}
+                                items={lifts.sort(liftSorter)}
+                                setOpen={setOpenPicker}
+                                setValue={setLiftValue}
+                                setItems={setLifts}
+                                searchable={true}
+                                closeAfterSelecting={true}
+                                placeholder='Select Exercise...'
+                                style={{ marginVertical: 3 }}
+                                listMode="SCROLLVIEW"
+                            />
+                        
                             <TextInput
                                 onChangeText={handleChange('weight')}
                                 onBlur={handleBlur('weight')}
@@ -56,9 +78,7 @@ const ExerciseForm = ({ onSubmit, cardId }) => {
                                 placeholder="Weight"
                                 style={{ borderWidth: 1, padding: 2, margin: 5 }}
                             />
-                        </View>
-
-                        <View>
+                        
                             <TextInput
                                 onChangeText={handleChange('reps')}
                                 onBlur={handleBlur('reps')}
@@ -67,13 +87,11 @@ const ExerciseForm = ({ onSubmit, cardId }) => {
                                 placeholder="reps"
                                 style={{ borderWidth: 1, padding: 2, margin: 5 }}
                             />
-                        </View>
-
-                        <View>
-                            <Button 
+                       
+                            <Button
                                 onPress={handleSubmit}
                                 title='Add'
-                                style={{ marginBottom: 5}}
+                                style={{ marginBottom: 5 }}
                             />
                         </View>
                     </View>

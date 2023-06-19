@@ -3,7 +3,7 @@ import { Header as HeaderRNE } from '@rneui/themed';
 import WorkoutModal from './WorkoutModal';
 
 
-const Header = ({ onSubmit }) => {
+const Header = ({ onSubmit, cardId }) => {
 
     return (
         <HeaderRNE
