@@ -1,4 +1,4 @@
-import { View, Text, TextInput } from "react-native";
+import { View, TextInput } from "react-native";
 import { Formik } from "formik";
 import { Button } from "@rneui/themed";
 import { useState } from "react";
@@ -8,17 +8,17 @@ const ExerciseForm = ({ onSubmit, cardId }) => {
     const [openPicker, setOpenPicker] = useState(false);
     const [liftValue, setLiftValue] = useState(null);
     const [lifts, setLifts] = useState([
-        { label: 'Shoulders', value: 'Shoulders' },
-        { label: 'Back', value: 'Back' },
-        { label: 'Arms', value: 'Arms' },
-        { label: 'Chest', value: 'Chest' },
-        { label: 'Hamstrings', value: 'Hamstrings' },
-        { label: 'Legs', value: 'Legs' },
-        { label: 'Lower Body', value: 'Lower Body' },
-        { label: 'Pull', value: 'Pull' },
-        { label: 'Push', value: 'Push' },
-        { label: 'Quads', value: 'Quads' },
-        { label: 'Upper Body', value: 'Upper Body' }
+        { label: 'Bench Press', value: 'Bench Press' },
+        { label: 'Squat', value: 'Squat' },
+        { label: 'Shoulder Press', value: 'Shoulder Press' },
+        { label: 'Tricep Extension', value: 'Tricep Extension' },
+        { label: 'DB Curl', value: 'DB Curl' },
+        { label: 'Lat Pulldown', value: 'Lat Pulldown' },
+        { label: 'Leg Press', value: 'Leg Press' },
+        { label: 'Incline DB Fly', value: 'Incline DB Fly' },
+        { label: 'Cable Fly', value: 'Cable Fly' },
+        { label: 'Goblet Squat', value: 'Goblet Squat' },
+        { label: 'Cable Row', value: 'Cable Row' }
     ]);
 
     const handleSubmit = (values) => {

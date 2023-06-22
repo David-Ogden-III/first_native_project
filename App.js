@@ -1,49 +1,23 @@
+import { createStackNavigator } from '@react-navigation/stack';
+import { NavigationContainer } from '@react-navigation/native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import Header from './Header';
-import { useState } from 'react';
-import ExerciseCard from './ExerciseCard';
-import { ScrollView } from 'react-native';
-import 'react-native-get-random-values';
-import { v4 as uuidv4 } from 'uuid';
+import MainScreen from './MainScreen';
+import LoginScreen from './LoginScreen';
+
+const Stack = createStackNavigator();
 
 export default function App() {
-  const [workoutList, setWorkoutList] = useState([{ id: 0, focus: '', date: '' }])
-  const [exerciseList, setExerciseList] = useState([{ id: 0, lift: '', weight: '', reps: '' }])
 
-  const addTitle = (newTitleData) => {
-    const newTitle = { id: uuidv4(), ...newTitleData }
-    setWorkoutList([...workoutList, newTitle])
-  }
-
-  const addExercise = (newExerciseData) => {
-    const newExercise = { id: uuidv4(), ...newExerciseData }
-    setExerciseList([...exerciseList, newExercise])
-  }
-
-  const deleteExercise = (idToDelete) => {
-    setExerciseList(exerciseList.filter(exercise => exercise.id !== idToDelete))
-  }
 
   return (
-    <SafeAreaProvider>
-      
-        <Header onSubmit={addTitle} />
-        <ScrollView
-          scrollEnabled 
-          scrollsToTop
-          showsVerticalScrollIndicator
-        >
-        {workoutList.map(workout =>
-          <ExerciseCard
-            key={workout.id}
-            workoutList={workout}
-            cardId={workout.id}
-            addExercise={addExercise}
-            exerciseList={exerciseList} onSubmit={addTitle}
-            deleteExercise={deleteExercise}
-          />
-        )}
-      </ScrollView>
-    </SafeAreaProvider>
+    <NavigationContainer>
+      <SafeAreaProvider>
+        <Stack.Navigator
+          initialRouteName='LoginScreen'>
+          <Stack.Screen name='LoginScreen' component={LoginScreen} options={{ headerShown: false }} />
+          <Stack.Screen name='MainScreen' component={MainScreen} options={{ headerShown: false }} />
+        </Stack.Navigator>
+      </SafeAreaProvider>
+    </NavigationContainer>
   );
 };

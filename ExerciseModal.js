@@ -59,8 +59,8 @@ const ExerciseModal = ({ onSubmit, exerciseList, workoutList, cardId, deleteExer
             </Modal>
 
         </View>
-    )
-}
+    );
+};
 
 const styles = StyleSheet.create({
     heading: {
