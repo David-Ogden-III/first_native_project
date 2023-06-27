@@ -1,12 +1,13 @@
-import { View, Text, StyleSheet, SafeAreaView } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faDumbbell } from '@fortawesome/free-solid-svg-icons';
 import { Button } from '@rneui/themed';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 const WelcomeScreen = ({ navigation }) => {
 	return (
-		<SafeAreaView style={styles.container}>
-			<View style={{ alignItems: 'center' }}>
+		<SafeAreaProvider style={styles.container}>
+			<View style={{ alignItems: 'center', paddingBottom: 30 }}>
 				<Text style={{ fontSize: 32, fontWeight: 'bold', color: '#FFFFFF' }}>
 					FitTrack
 				</Text>
@@ -23,21 +24,21 @@ const WelcomeScreen = ({ navigation }) => {
 			</View>
 			<View style={styles.buttonContainer}>
 				<Button
-					onPress={() => navigation.navigate('LoginScreen')}
+					onPress={() => navigation.push('Login')}
 					buttonStyle={styles.outlineButton}
 					title='Login'
 					titleStyle={styles.outlineButtonText}
 					containerStyle={styles.individualButtonsContainer}
 				/>
 				<Button
-					onPress={() => navigation.navigate('RegisterScreen')}
+					onPress={() => navigation.push('Register')}
 					buttonStyle={styles.solidButton}
 					title='Register'
 					titleStyle={styles.solidButtonText}
 					containerStyle={styles.individualButtonsContainer}
 				/>
 			</View>
-		</SafeAreaView>
+		</SafeAreaProvider>
 	);
 };
 

@@ -1,14 +1,9 @@
-import {
-	View,
-	TextInput,
-	KeyboardAvoidingView,
-	StyleSheet,
-	Text,
-} from 'react-native';
+import { View, TextInput, SafeAreaView, StyleSheet, Text } from 'react-native';
 import { useState } from 'react';
 import { Button, CheckBox, Image } from '@rneui/themed';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faDumbbell } from '@fortawesome/free-solid-svg-icons';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 const LoginScreen = ({ navigation }) => {
 	const [username, setUsername] = useState('');
@@ -18,7 +13,7 @@ const LoginScreen = ({ navigation }) => {
 	const toggleCheckbox = () => setChecked(!checked);
 
 	const signIn = () => {
-		navigation.replace('MainScreen');
+		navigation.navigate('Home');
 		console.log(username);
 		console.log(password);
 		console.log(checked);
@@ -36,7 +31,7 @@ const LoginScreen = ({ navigation }) => {
 	};
 
 	return (
-		<KeyboardAvoidingView behavior='padding' style={styles.container}>
+		<SafeAreaProvider behavior='padding' style={styles.container}>
 			<View
 				style={{
 					flex: 1,
@@ -111,7 +106,7 @@ const LoginScreen = ({ navigation }) => {
 					/>
 				</View>
 			</View>
-		</KeyboardAvoidingView>
+		</SafeAreaProvider>
 	);
 };
 

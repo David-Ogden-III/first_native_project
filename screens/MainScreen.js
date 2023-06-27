@@ -1,11 +1,12 @@
-import Header from '../Header';
+// import Header from '../Header';
 import { useState } from 'react';
-import ExerciseCard from '../ExerciseCard';
-import { ScrollView } from 'react-native';
+import ExerciseCard from '../exerciseComponents/ExerciseCard';
+import { ScrollView, View, StyleSheet } from 'react-native';
 import 'react-native-get-random-values';
 import { v4 as uuidv4 } from 'uuid';
+import BottomTab from '../BottomTab';
 
-const MainScreen = () => {
+const MainScreen = ({ navigation }) => {
 	const [workoutList, setWorkoutList] = useState([
 		{ id: 0, focus: '', date: '' },
 	]);
@@ -30,23 +31,23 @@ const MainScreen = () => {
 	};
 
 	return (
-		<>
-			<Header onSubmit={addTitle} />
-			<ScrollView scrollEnabled scrollsToTop showsVerticalScrollIndicator>
-				{workoutList.map((workout) => (
-					<ExerciseCard
-						key={workout.id}
-						workoutList={workout}
-						cardId={workout.id}
-						addExercise={addExercise}
-						exerciseList={exerciseList}
-						onSubmit={addTitle}
-						deleteExercise={deleteExercise}
-					/>
-				))}
-			</ScrollView>
-		</>
+		<View style={styles.container}>
+			<View></View>
+			<View>
+				<BottomTab navigation={navigation} />
+			</View>
+		</View>
 	);
 };
+
+const styles = StyleSheet.create({
+	container: {
+		justifyContent: 'center',
+		alignItems: 'center',
+		flex: 1,
+		backgroundColor: '#161616',
+		width: '100%',
+	},
+});
 
 export default MainScreen;

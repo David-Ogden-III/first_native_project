@@ -9,6 +9,7 @@ import { useState } from 'react';
 import { Button } from '@rneui/themed';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faDumbbell } from '@fortawesome/free-solid-svg-icons';
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 
 const RegisterScreen = ({ navigation }) => {
 	const [firstName, setFirstName] = useState('');
@@ -18,7 +19,7 @@ const RegisterScreen = ({ navigation }) => {
 	const [confirmPassword, setConfirmPassword] = useState('');
 
 	signIn = () => {
-		navigation.replace('MainScreen');
+		navigation.navigate('Home');
 		console.log(firstName);
 		console.log(lastName);
 		console.log(email);
@@ -41,7 +42,7 @@ const RegisterScreen = ({ navigation }) => {
 	};
 
 	return (
-		<KeyboardAvoidingView behavior='padding' style={styles.container}>
+		<SafeAreaProvider behavior='padding' style={styles.container}>
 			<View
 				style={{
 					flex: 1,
@@ -127,7 +128,7 @@ const RegisterScreen = ({ navigation }) => {
 					/>
 				</View>
 			</View>
-		</KeyboardAvoidingView>
+		</SafeAreaProvider>
 	);
 };
 
