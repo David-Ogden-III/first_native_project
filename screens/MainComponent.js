@@ -1,5 +1,5 @@
 import MainScreen from './MainScreen';
-import PastWorkoutsScreen from './pastWorkoutsScreen';
+import PastWorkoutsScreen from './PastWorkoutsScreen';
 import SearchScreen from './SearchScreen';
 import ProfileScreen from './ProfileScreen';
 import LoginScreen from './LoginScreen';

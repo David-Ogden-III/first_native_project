@@ -6,8 +6,13 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faCirclePlus } from '@fortawesome/free-solid-svg-icons';
+import { useSelector, useDispatch } from 'react-redux';
+import { addTitle } from '../redux/slices/workoutSlice';
 
 const WorkoutModal = ({ onSubmit, cardId }) => {
+	const title = useSelector((state) => state.workoutInfo.id);
+	const dispatch = useDispatch();
+
 	const [modalOpen, setModalOpen] = useState(false);
 	const [date, setDate] = useState(new Date());
 	const [openPicker, setOpenPicker] = useState(false);
@@ -102,7 +107,7 @@ const WorkoutModal = ({ onSubmit, cardId }) => {
 								/>
 
 								<Dialog.Button
-									onPress={handleSubmit}
+									onPress={() => dispatch(addTitle())}
 									title='Submit'
 									buttonStyle={{ marginTop: 3 }}
 								/>
