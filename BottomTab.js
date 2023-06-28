@@ -45,6 +45,6 @@ const styles = StyleSheet.create({
 		justifyContent: 'space-evenly',
 		flexDirection: 'row',
 		flexWrap: 'nowrap',
-		height: 64,
+		height: 90,
 	},
 });
