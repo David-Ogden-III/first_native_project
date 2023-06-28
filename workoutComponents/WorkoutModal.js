@@ -7,29 +7,20 @@ import DropDownPicker from 'react-native-dropdown-picker';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faCirclePlus } from '@fortawesome/free-solid-svg-icons';
 import { useSelector, useDispatch } from 'react-redux';
-import { addTitle } from '../redux/slices/workoutSlice';
+import { addTitle, togglePicker } from '../redux/slices/workoutSlice';
 
-const WorkoutModal = ({ onSubmit, cardId }) => {
+const WorkoutModal = ({ onSubmit }) => {
 	const title = useSelector((state) => state.workoutInfo.id);
+	const focus = useSelector((state) => state.workoutInfo.focus);
+	const dateDate = useSelector((state) => state.workoutInfo.date);
+	const picker = useSelector((state) => state.workoutInfo.picker);
+	const items = useSelector((state) => state.workoutInfo.items);
 	const dispatch = useDispatch();
 
 	const [modalOpen, setModalOpen] = useState(false);
+
 	const [date, setDate] = useState(new Date());
-	const [openPicker, setOpenPicker] = useState(false);
 	const [focusValue, setFocusValue] = useState(null);
-	const [focuses, setFocuses] = useState([
-		{ label: 'Shoulders', value: 'Shoulders' },
-		{ label: 'Back', value: 'Back' },
-		{ label: 'Arms', value: 'Arms' },
-		{ label: 'Chest', value: 'Chest' },
-		{ label: 'Hamstrings', value: 'Hamstrings' },
-		{ label: 'Legs', value: 'Legs' },
-		{ label: 'Lower Body', value: 'Lower Body' },
-		{ label: 'Pull', value: 'Pull' },
-		{ label: 'Push', value: 'Push' },
-		{ label: 'Quads', value: 'Quads' },
-		{ label: 'Upper Body', value: 'Upper Body' },
-	]);
 
 	const handleSubmit = () => {
 		const newTitle = {
@@ -38,7 +29,6 @@ const WorkoutModal = ({ onSubmit, cardId }) => {
 		};
 		onSubmit(newTitle);
 		setModalOpen(false);
-		console.log(newTitle);
 		setDate(new Date());
 		setFocusValue('');
 	};
@@ -75,7 +65,6 @@ const WorkoutModal = ({ onSubmit, cardId }) => {
 					setModalOpen(false);
 					setDate(new Date());
 					setFocusValue('');
-					setOpenPicker(false);
 				}}>
 				<Dialog.Title title='Select Focus and Date' />
 				<Formik
@@ -88,12 +77,11 @@ const WorkoutModal = ({ onSubmit, cardId }) => {
 						<View>
 							<View style={{ alignItems: 'center' }}>
 								<DropDownPicker
-									open={openPicker}
+									open={picker}
 									value={focusValue}
-									items={focuses.sort(focusSorter)}
-									setOpen={setOpenPicker}
+									items={items}
+									setOpen={() => dispatch(togglePicker())}
 									setValue={setFocusValue}
-									setItems={setFocuses}
 									searchable={true}
 									closeAfterSelecting={true}
 									placeholder='Select Focus...'
@@ -107,7 +95,7 @@ const WorkoutModal = ({ onSubmit, cardId }) => {
 								/>
 
 								<Dialog.Button
-									onPress={() => dispatch(addTitle())}
+									onPress={handleSubmit}
 									title='Submit'
 									buttonStyle={{ marginTop: 3 }}
 								/>
