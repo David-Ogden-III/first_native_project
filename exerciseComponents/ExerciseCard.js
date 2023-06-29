@@ -14,8 +14,8 @@ const ExerciseCard = ({
 			style={{
 				marginTop: 30,
 				borderRadius: 24,
-				width: '42.5%',
-				height: '33%',
+				width: 175,
+				height: 161,
 				backgroundColor: '#FFFFFF',
 			}}
 			wrapperStyle={{ margin: 0, padding: 0 }}>

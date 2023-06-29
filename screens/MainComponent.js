@@ -15,22 +15,25 @@ const MainComponent = () => {
 			<Stack.Screen
 				name='Home'
 				component={MainScreen}
-				options={{ headerShown: false, gestureEnabled: false }}
+				options={{
+					headerShown: false,
+					gestureEnabled: false,
+				}}
 			/>
 			<Stack.Screen
 				name='Past Workouts'
 				component={PastWorkoutsScreen}
-				options={{ headerShown: false }}
+				options={{ headerShown: false, animationEnabled: false }}
 			/>
 			<Stack.Screen
 				name='Search'
 				component={SearchScreen}
-				options={{ headerShown: false }}
+				options={{ headerShown: false, animationEnabled: false }}
 			/>
 			<Stack.Screen
 				name='Profile'
 				component={ProfileScreen}
-				options={{ headerShown: false }}
+				options={{ headerShown: false, animationEnabled: false }}
 			/>
 			<Stack.Screen
 				name='Register'

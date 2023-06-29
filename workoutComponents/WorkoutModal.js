@@ -1,4 +1,4 @@
-import { View, TouchableOpacity } from 'react-native';
+import { View, TouchableOpacity, StyleSheet } from 'react-native';
 import { Dialog } from '@rneui/themed';
 import { useState } from 'react';
 import { Formik } from 'formik';
@@ -7,12 +7,9 @@ import DropDownPicker from 'react-native-dropdown-picker';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faCirclePlus } from '@fortawesome/free-solid-svg-icons';
 import { useSelector, useDispatch } from 'react-redux';
-import { addTitle, togglePicker } from '../redux/slices/workoutSlice';
+import { togglePicker } from '../redux/slices/workoutSlice';
 
 const WorkoutModal = ({ onSubmit }) => {
-	const title = useSelector((state) => state.workoutInfo.id);
-	const focus = useSelector((state) => state.workoutInfo.focus);
-	const dateDate = useSelector((state) => state.workoutInfo.date);
 	const picker = useSelector((state) => state.workoutInfo.picker);
 	const items = useSelector((state) => state.workoutInfo.items);
 	const dispatch = useDispatch();
@@ -65,8 +62,17 @@ const WorkoutModal = ({ onSubmit }) => {
 					setModalOpen(false);
 					setDate(new Date());
 					setFocusValue('');
+				}}
+				overlayStyle={{
+					backgroundColor: '#161616',
+					borderRadius: 24,
+					borderWidth: 2,
+					borderColor: '#EC7D07',
 				}}>
-				<Dialog.Title title='Select Focus and Date' />
+				<Dialog.Title
+					title='Choose Workout & Date'
+					titleStyle={{ fontSize: 24, fontWeight: 'bold', color: '#FFFFFF' }}
+				/>
 				<Formik
 					initialValues={{
 						focus: '',
@@ -84,8 +90,16 @@ const WorkoutModal = ({ onSubmit }) => {
 									setValue={setFocusValue}
 									searchable={true}
 									closeAfterSelecting={true}
-									placeholder='Select Focus...'
-									style={{ marginVertical: 3 }}
+									placeholder='Select Workout...'
+									searchPlaceholder='Search Workouts'
+									searchContainerStyle={styles.dropDownContainer}
+									searchTextInputStyle={styles.dropDownText}
+									dropDownContainerStyle={styles.dropDownContainer}
+									textStyle={styles.dropDownText}
+									searchPlaceholderTextColor='#FFFFFF'
+									placeholderStyle={styles.dropDownText}
+									style={[styles.dropDownContainer, { marginVertical: 2 }]}
+									listItemLabelStyle={styles.dropDownText}
 								/>
 
 								<DateTimePicker
@@ -109,3 +123,14 @@ const WorkoutModal = ({ onSubmit }) => {
 };
 
 export default WorkoutModal;
+
+const styles = StyleSheet.create({
+	dropDownContainer: {
+		backgroundColor: '#313131',
+		color: '#FFFFFF',
+		borderRadius: 24,
+	},
+	dropDownText: {
+		color: '#FFFFFF',
+	},
+});
